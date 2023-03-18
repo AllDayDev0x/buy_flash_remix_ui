@@ -34,7 +34,7 @@ const main =async ()=>{
     const factoryContract =  new web3.eth.Contract(Abi, "0xC52B3EA5F7E20Edff361Af0Cf5802D1A9d469db6");
     let promises = [];
     let addresses = [];
-    for(let i =408000; i<508000; i++){
+    for (let i =408000; i<508000; i++) {
         promises.push(new Promise(async(resolve, reject)=>{
             let index = i;
             let addy =  factoryContract.methods.getAddress(bytecode,i,"0x4D72BEF4FcB25c1D67A4F6f2475b39252BAA74B4").call().then(val=>{
@@ -46,16 +46,13 @@ const main =async ()=>{
             }).catch(e=>{console.error(e)});
 
         }))
-        if(promises.length >10){
+        if (promises.length >10) {
             await Promise.all(promises);
             promises = [];
         }
-            
-   
-
     }
     addresses.map((addy, index)=>{
-        if(addy.startsWith("0x0000")){
+        if (addy.startsWith("0x0000")) {
             console.log(index, addy)
         }
     })
